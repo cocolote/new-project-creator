@@ -16,8 +16,13 @@ directories = [
 # If you need to use more files just added here in the hash
 # like key: "#{path}/<name of the file/" => ["<lines that you want in the file>"]
 files = {
-  # SQL schema file to create the tables in your database
-    "#{path}/schema.sql" => [
+ # README file put some comments about your new application
+  "#{path}/README.md" => [
+    "###{project_name.capitalize}\n\n",
+    "some description of your project"
+    ],
+ # SQL schema file to create the tables in your database
+  "#{path}/schema.sql" => [
     "-- If you want to run this schema repeatedly you'll need to drop",
     "-- the table before re-creating it. Note that you'll lose any",
     "-- data if you drop and add a table:\n\n",
@@ -127,4 +132,12 @@ end
 vendor_files.each do |vfile_name|
   extension = vfile_name.scan(/\.(\w{2,3})\z/i).join
   system 'cp', "./public/#{vfile_name}", "#{path}/public/#{extension}/vendor/"
+end
+
+success = "| Your #{project_name} project was successfully generated! |"
+
+if File.directory?(path)
+  puts "#{'-'*success.size}\n#{success}\n#{'-'*success.size}"
+else
+  puts "#{'-'*30}\n| Something went wrong, ups! |\n#{'-'*30}"
 end
