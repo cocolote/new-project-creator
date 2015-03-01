@@ -1,4 +1,4 @@
-The new_project creator
+##The new_project creator
 
 Simple routine to create all the files and basic directories to start
 a new Sinatra app.
