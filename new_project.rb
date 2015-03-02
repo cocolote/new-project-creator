@@ -104,7 +104,7 @@ files = {
     "    <%= yield %>\n\n",
     "  </div>",
     "  <script src='/js/vendor/jquery-2.1.3.min.js'></script>",
-    "  <script src='/#{project_name}.js'></script>",
+    "  <script src='/js/#{project_name}.js'></script>",
     "</body>",
     "</html>"
     ],
