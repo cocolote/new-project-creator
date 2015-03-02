@@ -101,6 +101,7 @@ files = {
     "</head>",
     "<body>",
     "  <div class='row'>\n\n",
+    "  <h1>My awesome #{project_name}</h1>",
     "    <%= yield %>\n\n",
     "  </div>",
     "  <script src='/js/vendor/jquery-2.1.3.min.js'></script>",
@@ -109,7 +110,7 @@ files = {
     "</html>"
     ],
   "#{path}/views/home.erb" => [
-    "<h1>My New Awesome Application</h1>\n\n",
+    "<h3>The home of my #{project_name}</h3>\n\n",
   ]
 }
 
