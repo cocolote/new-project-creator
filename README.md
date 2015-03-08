@@ -7,7 +7,7 @@ Simple routine to create the scaffolds for a new Sinatra app.
 - Clone the repository
   `git clone https://github.com/cocolote/new-project-creator.git`
 
-- Set the path where you installed the application
+- Set the path to the application
   `export PROJECT_CREATOR_PATH=<~/path/where/you/cloned/the/new-project-creator>`
 
 - Create a symbolic link to the executable file(the command to execute the routine "newp").
