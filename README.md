@@ -4,13 +4,23 @@ Simple routine to create the scaffolds for a new Sinatra app.
 
 ####Instructions
 
-Clone the repository into your projects directory
+- Clone the repository
+  `git clone https://github.com/cocolote/new-project-creator.git`
 
-Run it like `ruby new_project.rb` and it will create a new directory
-`new-project` with all the dependencies.
+- Set the path where you installed the application
+  `export PROJECT_CREATOR_PATH=<~/path/where/you/cloned/the/new-project-creator>`
 
-Or you could enter the name of your project like `ruby new_project.rb my-project`
+- Create a symbolic link to the executable file(the command to execute the routine "newp").
+  This will let you create a new project, anywhere in your computer.
+  `ln -s <~/the/new-project-creator/path/newp> /usr/local/bin/newp
+
+
+Run it like `newp` and it will create a new directory
+new-project with all the dependencies in the directory where you are making the
+call.
+
+You can enter the name of your project like `newp my-project`
 and it will create the directory with that name.
 
-Also if you already have a directory for your project it will add the dependencies
-to it.
+You can also enter the path where you want to create the new project like this
+`newp your-project <~/your/path>`

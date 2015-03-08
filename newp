@@ -1,8 +1,13 @@
+#!/usr/bin/env ruby
+
 # this is a simple routine to create the basic directories for a Sinatra
 # application,
-ARGV.empty? ? project_name = "new-project" : project_name = ARGV.join
+project_name, user_path = ARGV
+project_name = "new-project" if project_name.nil?
 
-path = "#{File.expand_path(".").split('/')[0..-2].join('/')}/#{project_name}"
+project_creator_path = ENV["PROJECT_CREATOR_PATH"]
+base_path = user_path || File.expand_path(".")
+path = "#{base_path}/#{project_name}"
 
 directories = [
   "#{path}/views",
@@ -47,7 +52,6 @@ files = {
  # The heart of your app, functions and controllers
   "#{path}/server.rb" => [
     "require 'sinatra'",
-    "require 'erb'",
     "#this is dedicated to Spencer, great EE who show us the power of pry!",
     "require 'pry'",
     "#Uncomment this line to use 'pg' to connect to your DB",
@@ -94,7 +98,7 @@ files = {
     "<html lang='en'>",
     "<head>",
     "  <meta charset='UTF-8'>",
-    "  <title>My New Awesome Application</title>",
+    "  <title>Awesome #{project_name}</title>",
     "  <link rel='stylesheet' href='/css/vendor/foundation.min.css'>",
     "  <link rel='stylesheet' href='/css/vendor/normalize.css'>",
     "  <link rel='stylesheet' href='/css/#{project_name}.css'>",
@@ -132,7 +136,7 @@ end
 
 vendor_files.each do |vfile_name|
   extension = vfile_name.scan(/\.(\w{2,3})\z/i).join
-  system 'cp', "./public/#{vfile_name}", "#{path}/public/#{extension}/vendor/"
+  system 'cp', "#{project_creator_path}/public/#{vfile_name}", "#{path}/public/#{extension}/vendor/"
 end
 
 success = "| Your #{project_name} project was successfully generated! |"
