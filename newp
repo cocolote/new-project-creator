@@ -1,11 +1,15 @@
 #!/usr/bin/env ruby
+#
+require 'pry'
 
 # this is a simple routine to create the basic directories for a Sinatra
 # application,
 project_name, user_path = ARGV
-project_name = "new-project" if project_name.nil?
+project_name = project_name || "new-project"
 
-project_creator_path = ENV["PROJECT_CREATOR_PATH"]
+#project_creator_path = ENV["PROJECT_CREATOR_PATH"]
+project_creator_path = File.expand_path($0).gsub('/newp', '')
+
 base_path = user_path || File.expand_path(".")
 path = "#{base_path}/#{project_name}"
 
@@ -21,7 +25,7 @@ directories = [
   "#{path}/public/css/vendor"
   ]
 
-# If you need to use more files just added here in the hash
+# If you need to use more files just add them here in the hash
 # like key: "#{path}/<name of the file/" => ["<lines that you want in the file>"]
 files = {
  # config.ru is required by Heroku to deploy Sinatra apps
@@ -53,13 +57,14 @@ files = {
   #   ],
  # .gitignore file to hide your private information like API keys
   "#{path}/.gitignore" => [
-    ".env"
+    ".env",
+    ".swp"
     ],
  # Gemfile add all your gems to share with your app
   "#{path}/Gemfile" => [
     "#share all the gems that your awesome app needs",
     "source 'https://rubygems.org/'\n\n",
-    "ruby '2.0.0'\n\n",
+    "ruby '#{RUBY_VERSION}'\n\n",
     "gem 'sinatra'",
     "gem 'pry'",
     "gem 'pg'",
