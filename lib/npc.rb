@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
-#
+
 require 'pry'
 
 # this is a simple routine to create the basic directories for a Sinatra
 # application,
 project_name, user_path = ARGV
-project_name = project_name || "new-project"
+project_name = project_name || "myWeb"
 
 #project_creator_path = ENV["PROJECT_CREATOR_PATH"]
 project_creator_path = File.expand_path($0).gsub('/newp', '')
@@ -23,27 +23,27 @@ directories = [
   "#{path}/public/js/vendor",
   "#{path}/public/css",
   "#{path}/public/css/vendor"
-  ]
+]
 
 # If you need to use more files just add them here in the hash
 # like key: "#{path}/<name of the file/" => ["<lines that you want in the file>"]
 files = {
- # config.ru is required by Heroku to deploy Sinatra apps
+  # config.ru is required by Heroku to deploy Sinatra apps
   "#{path}/config.ru" => [
     "require './app'",
     "run Sinatra::Application"
-    ],
- # rakefile.rb to create migrations and have the rake functionality in Sintra
- "#{path}/rakefile.rb" => [
-  "require './app'",
-  "require 'sinatra/activerecord/rake'"
   ],
- # README file put some comments about your new application
+  # rakefile.rb to create migrations and have the rake functionality
+  "#{path}/rakefile.rb" => [
+    "require './app'",
+    "require 'sinatra/activerecord/rake'"
+  ],
+  # README file put some comments about your new application
   "#{path}/README.md" => [
     "###{project_name.capitalize}\n\n",
-    "some description of your project"
-    ],
- # SQL schema file to create the tables in your database
+    "Your project description"
+  ],
+  # SQL schema file to create the tables in your database
   # "#{path}/schema.sql" => [
   #   "-- If you want to run this schema repeatedly you'll need to drop",
   #   "-- the table before re-creating it. Note that you'll lose any",
@@ -55,14 +55,14 @@ files = {
   #   "--   <column name> <type of data> NOT NULL",
   #   "-- );",
   #   ],
- # .gitignore file to hide your private information like API keys
+  # .gitignore file to hide your private information like API keys
   "#{path}/.gitignore" => [
     ".env",
     ".swp"
-    ],
- # Gemfile add all your gems to share with your app
+  ],
+  # Gemfile add all your gems to share with your app
   "#{path}/Gemfile" => [
-    "#share all the gems that your awesome app needs",
+    "#List the gems required for your application",
     "source 'https://rubygems.org/'\n\n",
     "ruby '#{RUBY_VERSION}'\n\n",
     "gem 'sinatra'",
@@ -71,12 +71,12 @@ files = {
     "gem 'activerecord'",
     "gem 'sinatra-activerecord'",
     "gem 'rake'"
-    ],
- # The heart of your app, functions and controllers
+  ],
+  # The heart of your app, functions and controllers
   "#{path}/app.rb" => [
     "require 'sinatra'",
     "require 'sinatra/activerecord'",
-    "#this is dedicated to Spencer, great EE who show us the power of pry!",
+    "#debugging tool",
     "require 'pry'\n\n",
     # "#Uncomment this line to use 'pg' to connect to your DB",
     # "#require 'pg'\n\n",
@@ -108,8 +108,8 @@ files = {
     "get '/home' do",
     "  erb :home",
     "end"
-    ],
- # file to setup the database
+  ],
+  # file to setup the database
   "#{path}/config/database.yml.example" => [
     "# Configure the database used when in the development environment",
     "development:",
@@ -136,47 +136,43 @@ files = {
     "  username:",
     "  password:"
   ],
- # Your own JavaScript file
+  # Your own JavaScript file
   "#{path}/public/js/#{project_name}.js" => [
-    "// The canvas for your awesome JS code"
-    ],
- # Your own CSS file
+    "// Add your JS code"
+  ],
+  # Your own CSS file
   "#{path}/public/css/#{project_name}.css" =>[
-    "/* Let's put some makeup! */"
-    ],
- # The layout file already linked to the CSS files and JS
+    "/* Add some style! */"
+  ],
+  # The layout file already linked to the CSS files and JS
   "#{path}/views/layout.erb" => [
     "<!DOCTYPE html>",
     "<html lang='en'>",
     "<head>",
-    "  <meta charset='UTF-8'>",
-    "  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'/>",
-    "  <title>Awesome #{project_name}</title>",
-    "  <link type='text/css' rel='stylesheet' href='/css/vendor/materialize.min.css' media='screen,projection'>",
-    "  <link type='text/css' rel='stylesheet' href='/css/#{project_name}.css'>",
+    "    <meta charset='UTF-8'>",
+    "    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'/>",
+    "    <title>#{project_name}</title>",
+    "    <link type='text/css' rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>",
+    "    <link type='text/css' rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.1/css/bulma.css' media='screen,projection'>",
+    "    <link type='text/css' rel='stylesheet' href='/css/#{project_name}.css'>",
     "</head>",
     "<body>",
-    "  <div class='row'>\n\n",
-    "  <h1>My awesome #{project_name}</h1>",
     "    <%= yield %>\n\n",
-    "  </div>",
-    "  <script type='text/javascript' src='//code.jquery.com/jquery-2.1.1.min.js'></script>",
-    "  <script type='text/javascript' src='/js/materialize.min.js'></script>",
-    "  <script type='text/javascript' src='/js/#{project_name}.js'></script>",
+    "    <script type='text/javascript' src='https://code.jquery.com/jquery-3.2.1.slim.min.js'></script>",
     "</body>",
     "</html>"
-    ],
+  ],
   "#{path}/views/home.erb" => [
-    "<h3>The home of my #{project_name}</h3>\n\n"
+    "<h3>#{project_name} Home</h3>\n\n"
   ]
 }
 
-vendor_files = [
-  "materialize.min.css",
-  "materialize.min.js"
-  # "normalize.css",
-  # "jquery-2.1.3.min.js"
-  ]
+#vendor_files = [
+#  "materialize.min.css",
+#  "materialize.min.js"
+#  # "normalize.css",
+#  # "jquery-2.1.3.min.js"
+#]
 
 directories.each { |path_dir| system 'mkdir', '-p', path_dir }
 
@@ -188,10 +184,10 @@ files.each do |file_path, info|
   end
 end
 
-vendor_files.each do |vfile_name|
-  extension = vfile_name.scan(/\.(\w{2,3})\z/i).join
-  system 'cp', "#{project_creator_path}/public/#{vfile_name}", "#{path}/public/#{extension}/vendor/"
-end
+#vendor_files.each do |vfile_name|
+#  extension = vfile_name.scan(/\.(\w{2,3})\z/i).join
+#  system 'cp', "#{project_creator_path}/public/#{vfile_name}", "#{path}/public/#{extension}/vendor/"
+#end
 
 success = "| Your #{project_name} project was successfully generated! |"
 
